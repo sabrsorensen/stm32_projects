@@ -1,0 +1,70 @@
+#include "stm32f1xx_hal.h"
+
+#define LED_PIN GPIO_PIN_13
+#define LED_GPIO_PORT GPIOC
+#define LED_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
+
+#define RGB_COLOR_LED_PIN_RED GPIO_PIN_5
+#define RGB_COLOR_LED_PIN_GREEN GPIO_PIN_6
+#define RGB_COLOR_LED_PIN_BLUE GPIO_PIN_7
+#define RGB_COLOR_LED_GPIO_PORT GPIOB
+#define RGB_COLOR_LED_GPIO_CLK_ENABLE() __HAL_RCC_GPIOB_CLK_ENABLE()
+
+void LED_Init();
+void RGB_Color_LED_Init();
+
+int main(void)
+{
+    HAL_Init();
+    LED_Init();
+    RGB_Color_LED_Init();
+
+    while (1)
+    {
+        HAL_GPIO_WritePin(RGB_COLOR_LED_GPIO_PORT, RGB_COLOR_LED_PIN_RED, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(RGB_COLOR_LED_GPIO_PORT, RGB_COLOR_LED_PIN_GREEN, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(RGB_COLOR_LED_GPIO_PORT, RGB_COLOR_LED_PIN_BLUE, GPIO_PIN_RESET);
+        HAL_GPIO_TogglePin(LED_GPIO_PORT, LED_PIN);
+        HAL_Delay(1000);
+
+        HAL_GPIO_WritePin(RGB_COLOR_LED_GPIO_PORT, RGB_COLOR_LED_PIN_RED, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(RGB_COLOR_LED_GPIO_PORT, RGB_COLOR_LED_PIN_GREEN, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(RGB_COLOR_LED_GPIO_PORT, RGB_COLOR_LED_PIN_BLUE, GPIO_PIN_RESET);
+        HAL_GPIO_TogglePin(LED_GPIO_PORT, LED_PIN);
+        HAL_Delay(1000);
+
+        HAL_GPIO_WritePin(RGB_COLOR_LED_GPIO_PORT, RGB_COLOR_LED_PIN_RED, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(RGB_COLOR_LED_GPIO_PORT, RGB_COLOR_LED_PIN_GREEN, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(RGB_COLOR_LED_GPIO_PORT, RGB_COLOR_LED_PIN_BLUE, GPIO_PIN_SET);
+        HAL_GPIO_TogglePin(LED_GPIO_PORT, LED_PIN);
+        HAL_Delay(1000);
+    }
+}
+
+void LED_Init()
+{
+    LED_GPIO_CLK_ENABLE();
+    GPIO_InitTypeDef GPIO_InitStruct;
+    GPIO_InitStruct.Pin = LED_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    HAL_GPIO_Init(LED_GPIO_PORT, &GPIO_InitStruct);
+}
+
+void RGB_Color_LED_Init()
+{
+    RGB_COLOR_LED_GPIO_CLK_ENABLE();
+
+    GPIO_InitTypeDef GPIO_InitStruct;
+    GPIO_InitStruct.Pin = RGB_COLOR_LED_PIN_RED | RGB_COLOR_LED_PIN_GREEN | RGB_COLOR_LED_PIN_BLUE;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(RGB_COLOR_LED_GPIO_PORT, &GPIO_InitStruct);
+}
+
+void SysTick_Handler(void)
+{
+    HAL_IncTick();
+}
