@@ -1,13 +1,17 @@
-* STM32 Projects
+# STM32 Projects
 
-** ButtonRGBHelloWorld
+## ButtonRGBHelloWorld
+
 Pressing the button will cause the cycling RGB LED to increase the speed of the color cycling
 
-** HelloWorld
+## HelloWorld
+
 Simple LED blinking
 
-** LCD_Driver
+## LCD_Driver
+
 Microtips Technology S16204XRGHS LCD driver, practice with bitbanging and bitmasks, latching commands, addressing
 
-** RGBHelloWorld
+## RGBHelloWorld
+
 RGB LED color cycling
