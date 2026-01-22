@@ -1,0 +1,28 @@
+{
+    "name": "LCD_MTC_S16204XRGHS",
+    "version": "0.0.1",
+    "description": "Driver library for MTC-S16204XRGHS LCD display",
+    "keywords": ["lcd", "display", "stm32", "parallel"],
+    "authors": [
+        {
+            "name": "Sam Sorensen",
+            "email": "sam@nesneros.space"
+        }
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/sabrsorensen/lcd-driver",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sabrsorensen/lcd-driver.git"
+    },
+    "frameworks": ["stm32cube"],
+    "platforms": ["ststm32"],
+    "dependencies": {},
+    "export": {
+        "include": "include"
+    },
+    "build": {
+        "includeDir": "include",
+        "srcDir": "src"
+    }
+}
